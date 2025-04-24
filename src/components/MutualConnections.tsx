@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AvatarGroup } from "@/components/ui/avatar";
+import { AvatarGroup } from "@/components/ui/avatar-group";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
