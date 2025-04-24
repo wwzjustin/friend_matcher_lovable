@@ -1,4 +1,3 @@
-
 import React from 'react';
 import NavigationBar from '@/components/NavigationBar';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,7 @@ const Index = () => {
     { 
       icon: UserCheck, 
       title: 'Friend Recommendations',
-      description: 'See who your friends think you'd get along with'
+      description: "See who your friends think you'd get along with"
     },
     { 
       icon: LinkIcon, 

@@ -21,7 +21,7 @@ const mockProfiles = [
       {
         friendName: 'Alex Johnson',
         friendAvatar: 'https://i.pravatar.cc/150?img=10',
-        recommendation: 'Emma is one of the most genuine people I know. She's easy to talk to and would be a great friend for you!',
+        recommendation: "Emma is one of the most genuine people I know. She's easy to talk to and would be a great friend for you!",
         relationshipToTarget: 'College Friend'
       }
     ]
@@ -37,7 +37,7 @@ const mockProfiles = [
       {
         friendName: 'Sarah Lee',
         friendAvatar: 'https://i.pravatar.cc/150?img=44',
-        recommendation: 'Michael is super thoughtful and always the one organizing get-togethers. You two would get along so well!',
+        recommendation: "Michael is super thoughtful and always the one organizing get-togethers. You two would get along so well!",
         relationshipToTarget: 'Work Colleague'
       }
     ]
@@ -53,7 +53,7 @@ const mockProfiles = [
       {
         friendName: 'James Williams',
         friendAvatar: 'https://i.pravatar.cc/150?img=12',
-        recommendation: 'Olivia is the kind of friend who's always there when you need her. She's creative and has the best recommendations for everything!',
+        recommendation: "Olivia is the kind of friend who's always there when you need her. She's creative and has the best recommendations for everything!",
         relationshipToTarget: 'Childhood Friend'
       }
     ]
