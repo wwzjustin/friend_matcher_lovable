@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Badge } from '@/components/ui/badge';
 import NavigationBar from '@/components/NavigationBar';
@@ -8,9 +9,26 @@ import { useToast } from '@/hooks/use-toast';
 import { Star, UserCheck, Handshake } from 'lucide-react';
 import SearchBar from '@/components/SearchBar';
 import { useGeolocation } from '@/hooks/useGeolocation';
-import { calculateDistance } from '@/utils/locationUtils';
+import { calculateDistance, Coordinates } from '@/utils/locationUtils';
 
-const mockProfiles = [
+interface Profile {
+  id: string;
+  name: string;
+  avatar: string;
+  compatibility: number;
+  interests: string[];
+  mutualFriends: number;
+  location: Coordinates;
+  distance?: number;
+  vouchers: {
+    friendName: string;
+    friendAvatar: string;
+    recommendation: string;
+    relationshipToTarget: string;
+  }[];
+}
+
+const mockProfiles: Profile[] = [
   {
     id: '1',
     name: 'Emma Wilson',

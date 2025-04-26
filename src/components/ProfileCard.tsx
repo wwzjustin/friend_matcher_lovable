@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Handshake, MapPin } from "lucide-react";
+import { Handshake, MapPin, UserCheck } from "lucide-react";
 import CompatibilityScore from './CompatibilityScore';
 
 interface ProfileCardProps {
