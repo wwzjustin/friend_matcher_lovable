@@ -4,7 +4,12 @@ export interface Coordinates {
   longitude: number;
 }
 
-export function calculateDistance(coord1: Coordinates, coord2: Coordinates): number {
+export function calculateDistance(coord1: Coordinates | null, coord2: Coordinates | null): number | null {
+  // Return null if either coordinate is missing
+  if (!coord1 || !coord2) {
+    return null;
+  }
+  
   const R = 6371; // Earth's radius in kilometers
   const dLat = toRad(coord2.latitude - coord1.latitude);
   const dLon = toRad(coord2.longitude - coord1.longitude);

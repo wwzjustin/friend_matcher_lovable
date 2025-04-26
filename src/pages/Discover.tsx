@@ -53,6 +53,7 @@ const mockProfiles: Profile[] = [
     compatibility: 76,
     interests: ['Music', 'Travel', 'Cooking'],
     mutualFriends: 2,
+    location: { latitude: 40.7306, longitude: -73.9352 },
     vouchers: [
       {
         friendName: 'Sarah Lee',
@@ -69,6 +70,7 @@ const mockProfiles: Profile[] = [
     compatibility: 92,
     interests: ['Art', 'Yoga', 'Coffee'],
     mutualFriends: 4,
+    location: { latitude: 40.7580, longitude: -73.9855 },
     vouchers: [
       {
         friendName: 'James Williams',
