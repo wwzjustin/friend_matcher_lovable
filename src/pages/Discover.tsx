@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Badge } from '@/components/ui/badge';
 import NavigationBar from '@/components/NavigationBar';
 import ProfileCard from '@/components/ProfileCard';
@@ -7,8 +6,10 @@ import FriendVoucher from '@/components/FriendVoucher';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Star, UserCheck, Handshake } from 'lucide-react';
+import SearchBar from '@/components/SearchBar';
+import { useGeolocation } from '@/hooks/useGeolocation';
+import { calculateDistance } from '@/utils/locationUtils';
 
-// Mock data to simulate API response
 const mockProfiles = [
   {
     id: '1',
@@ -17,6 +18,7 @@ const mockProfiles = [
     compatibility: 87,
     interests: ['Photography', 'Hiking', 'Reading'],
     mutualFriends: 3,
+    location: { latitude: 40.7128, longitude: -74.0060 },
     vouchers: [
       {
         friendName: 'Alex Johnson',
@@ -62,7 +64,31 @@ const mockProfiles = [
 
 const Discover = () => {
   const [activeTab, setActiveTab] = useState('recommended');
+  const [searchQuery, setSearchQuery] = useState('');
   const { toast } = useToast();
+  const { coordinates } = useGeolocation();
+
+  const filteredProfiles = useMemo(() => {
+    return mockProfiles.filter(profile => {
+      const matchesSearch = searchQuery.toLowerCase().split(' ').every(term =>
+        profile.name.toLowerCase().includes(term) ||
+        profile.interests.some(interest => 
+          interest.toLowerCase().includes(term)
+        )
+      );
+
+      return matchesSearch;
+    });
+  }, [searchQuery]);
+
+  const profilesWithDistance = useMemo(() => {
+    if (!coordinates) return filteredProfiles;
+
+    return filteredProfiles.map(profile => ({
+      ...profile,
+      distance: calculateDistance(coordinates, profile.location)
+    }));
+  }, [filteredProfiles, coordinates]);
 
   const handleConnect = (name: string) => {
     toast({
@@ -77,6 +103,11 @@ const Discover = () => {
       <div className="p-4 flex-1">
         <h1 className="text-2xl font-bold mb-4">Discover Connections</h1>
         
+        <SearchBar
+          value={searchQuery}
+          onSearch={setSearchQuery}
+        />
+        
         <Tabs defaultValue="recommended" className="mb-4" onValueChange={setActiveTab}>
           <TabsList className="grid grid-cols-3 mb-4">
             <TabsTrigger value="recommended">
@@ -89,7 +120,7 @@ const Discover = () => {
           </TabsList>
           
           <TabsContent value="recommended" className="space-y-4">
-            {mockProfiles.map((profile, index) => (
+            {profilesWithDistance.map((profile, index) => (
               <div key={profile.id} className="mb-8" style={{animationDelay: `${index * 150}ms`}}>
                 <ProfileCard 
                   name={profile.name}
@@ -97,6 +128,7 @@ const Discover = () => {
                   compatibility={profile.compatibility}
                   interests={profile.interests}
                   mutualFriends={profile.mutualFriends}
+                  distance={profile.distance}
                   onConnect={() => handleConnect(profile.name)}
                 />
                 

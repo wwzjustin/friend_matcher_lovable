@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Handshake, UserCheck } from "lucide-react";
+import { Handshake, MapPin } from "lucide-react";
 import CompatibilityScore from './CompatibilityScore';
 
 interface ProfileCardProps {
@@ -13,6 +12,7 @@ interface ProfileCardProps {
   compatibility: number;
   interests: string[];
   mutualFriends: number;
+  distance?: number | null;
   onConnect: () => void;
 }
 
@@ -22,6 +22,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   compatibility,
   interests,
   mutualFriends,
+  distance,
   onConnect
 }) => {
   return (
@@ -42,6 +43,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       </div>
       <CardContent className="pt-16 pb-5">
         <h3 className="text-xl font-semibold text-center mb-2">{name}</h3>
+        {distance !== undefined && distance !== null && (
+          <Badge variant="secondary" className="flex items-center gap-1 mx-auto mb-4">
+            <MapPin className="h-3 w-3" />
+            {distance} km away
+          </Badge>
+        )}
         <div className="flex justify-center mb-4">
           <Badge variant="outline" className="flex items-center gap-1">
             <UserCheck className="h-3 w-3" /> {mutualFriends} mutual connections
