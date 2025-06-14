@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import NavigationBar from '@/components/NavigationBar';
-import { Heart, X, Users, MapPin, Shield, Star, UserCheck, MessageSquare, ArrowRight } from 'lucide-react';
+import { Heart, Users, MapPin, Shield, Star, UserCheck, MessageSquare, ArrowRight, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 
@@ -110,16 +110,11 @@ const MatchFeed = () => {
   const [showTestimony, setShowTestimony] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const handleConnect = (matchId: string, name: string) => {
-    setMatches(prev => prev.filter(match => match.id !== matchId));
+  const handleSendMessage = (matchId: string, name: string) => {
     toast({
-      title: "Connection sent! 💜",
-      description: `Your request was sent to ${name}`,
+      title: "Message sent! 💬",
+      description: `Your message was sent to ${name}`,
     });
-  };
-
-  const handleSkip = (matchId: string) => {
-    setMatches(prev => prev.filter(match => match.id !== matchId));
   };
 
   const getCompatibilityColor = (score: number) => {
@@ -148,7 +143,7 @@ const MatchFeed = () => {
       {/* Header */}
       <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b p-4">
         <h1 className="text-2xl font-bold text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-          Discover Connections
+          Your Connections
         </h1>
         
         {/* Quick Navigation to Recommendations */}
@@ -160,8 +155,8 @@ const MatchFeed = () => {
                   <div className="flex items-center space-x-2">
                     <Users className="w-5 h-5 text-blue-600" />
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Friend Recommendations</p>
-                      <p className="text-xs text-gray-600">Connections backed by people you trust</p>
+                      <p className="text-sm font-medium text-gray-900">Find New Connections</p>
+                      <p className="text-xs text-gray-600">Discover people backed by friends you trust</p>
                     </div>
                   </div>
                   <ArrowRight className="w-4 h-4 text-blue-600" />
@@ -176,15 +171,15 @@ const MatchFeed = () => {
       <div className="p-4 space-y-6">
         {matches.length === 0 ? (
           <div className="text-center py-20">
-            <div className="text-6xl mb-4">🎉</div>
-            <h3 className="text-xl font-semibold mb-2 text-slate-800">All caught up!</h3>
-            <p className="text-slate-600 mb-4">Check back later for new connections</p>
+            <div className="text-6xl mb-4">💬</div>
+            <h3 className="text-xl font-semibold mb-2 text-slate-800">No connections yet!</h3>
+            <p className="text-slate-600 mb-4">Start connecting with people you'd like to meet</p>
             
             {/* Suggest checking recommendations */}
             <Link to="/recommendations">
               <Button className="gradient-primary">
                 <Users className="w-4 h-4 mr-2" />
-                Check Friend Recommendations
+                Find New Connections
               </Button>
             </Link>
           </div>
@@ -228,7 +223,7 @@ const MatchFeed = () => {
                         </div>
                         <div className="flex items-center">
                           <UserCheck className="w-4 h-4 mr-1" />
-                          {match.socialProof.responseRate}% response
+                          Connected
                         </div>
                       </div>
                     </div>
@@ -319,24 +314,15 @@ const MatchFeed = () => {
                   </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex p-4 pt-0 space-x-3">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="flex-1 rounded-full border-2 hover:bg-gray-50 text-slate-700 border-slate-300"
-                    onClick={() => handleSkip(match.id)}
-                  >
-                    <X className="w-5 h-5 mr-2" />
-                    Skip
-                  </Button>
+                {/* Action Button - Chat */}
+                <div className="flex p-4 pt-0">
                   <Button
                     size="lg"
-                    className="flex-1 rounded-full gradient-primary hover:scale-105 transition-transform"
-                    onClick={() => handleConnect(match.id, match.name)}
+                    className="w-full rounded-full gradient-primary hover:scale-105 transition-transform"
+                    onClick={() => handleSendMessage(match.id, match.name)}
                   >
-                    <Heart className="w-5 h-5 mr-2" />
-                    Connect
+                    <MessageSquare className="w-5 h-5 mr-2" />
+                    Send Message
                   </Button>
                 </div>
               </CardContent>

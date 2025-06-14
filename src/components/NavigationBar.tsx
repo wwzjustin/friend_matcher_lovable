@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Heart, User, Users, MessageCircle } from 'lucide-react';
+import { Home, Heart, User, Users } from 'lucide-react';
 
 const NavigationBar = () => {
   const location = useLocation();
@@ -10,7 +9,6 @@ const NavigationBar = () => {
     { path: '/', icon: Home, label: 'Home' },
     { path: '/matches', icon: Heart, label: 'Matches' },
     { path: '/recommendations', icon: Users, label: 'Discover' },
-    { path: '/invite-message', icon: MessageCircle, label: 'Messages' },
     { path: '/profile', icon: User, label: 'Profile' },
   ];
 
