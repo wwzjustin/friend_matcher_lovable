@@ -9,13 +9,13 @@ const NavigationBar = () => {
   const navItems = [
     { path: '/', icon: Home, label: 'Home' },
     { path: '/matches', icon: Heart, label: 'Matches' },
-    { path: '/recommendations', icon: Users, label: 'Recommendations' },
+    { path: '/recommendations', icon: Users, label: 'Discover' },
     { path: '/invite-message', icon: MessageCircle, label: 'Messages' },
     { path: '/profile', icon: User, label: 'Profile' },
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-border">
+    <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-border z-50">
       <div className="flex justify-around items-center py-2 px-4">
         {navItems.map((item) => {
           const Icon = item.icon;

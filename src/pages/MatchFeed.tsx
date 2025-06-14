@@ -1,12 +1,12 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import NavigationBar from '@/components/NavigationBar';
-import { Heart, X, Users, MapPin, Shield, Star, UserCheck, MessageSquare } from 'lucide-react';
+import { Heart, X, Users, MapPin, Shield, Star, UserCheck, MessageSquare, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Link } from 'react-router-dom';
 
 interface Match {
   id: string;
@@ -150,6 +150,26 @@ const MatchFeed = () => {
         <h1 className="text-2xl font-bold text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           Discover Connections
         </h1>
+        
+        {/* Quick Navigation to Recommendations */}
+        <div className="mt-3">
+          <Link to="/recommendations">
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 hover:shadow-md transition-all">
+              <CardContent className="p-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Users className="w-5 h-5 text-blue-600" />
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">Friend Recommendations</p>
+                      <p className="text-xs text-gray-600">Connections backed by people you trust</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-blue-600" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
       </div>
 
       {/* Match Feed */}
@@ -158,7 +178,15 @@ const MatchFeed = () => {
           <div className="text-center py-20">
             <div className="text-6xl mb-4">🎉</div>
             <h3 className="text-xl font-semibold mb-2 text-slate-800">All caught up!</h3>
-            <p className="text-slate-600">Check back later for new connections</p>
+            <p className="text-slate-600 mb-4">Check back later for new connections</p>
+            
+            {/* Suggest checking recommendations */}
+            <Link to="/recommendations">
+              <Button className="gradient-primary">
+                <Users className="w-4 h-4 mr-2" />
+                Check Friend Recommendations
+              </Button>
+            </Link>
           </div>
         ) : (
           matches.map((match, index) => (
