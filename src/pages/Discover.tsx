@@ -1,9 +1,9 @@
-
 import React, { useState, useMemo } from 'react';
 import { Badge } from '@/components/ui/badge';
 import NavigationBar from '@/components/NavigationBar';
 import ProfileCard from '@/components/ProfileCard';
 import FriendVoucher from '@/components/FriendVoucher';
+import ProfileModal from '@/components/ProfileModal';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Star, UserCheck, Handshake } from 'lucide-react';
@@ -20,12 +20,21 @@ interface Profile {
   mutualFriends: number;
   location: Coordinates;
   distance?: number;
+  bio?: string;
   vouchers: {
     friendName: string;
     friendAvatar: string;
     recommendation: string;
     relationshipToTarget: string;
   }[];
+  // Enhanced social proof
+  socialProof: {
+    endorsements: number;
+    responseRate: number;
+    mutualConnections: number;
+  };
+  verificationLevel: 'Gold' | 'Silver' | 'Verified' | 'Basic';
+  trustScore: number;
 }
 
 const mockProfiles: Profile[] = [
@@ -37,6 +46,14 @@ const mockProfiles: Profile[] = [
     interests: ['Photography', 'Hiking', 'Reading'],
     mutualFriends: 3,
     location: { latitude: 40.7128, longitude: -74.0060 },
+    bio: 'Love exploring new places and capturing moments. Always up for a good conversation over coffee!',
+    socialProof: {
+      endorsements: 12,
+      responseRate: 94,
+      mutualConnections: 8
+    },
+    verificationLevel: 'Gold',
+    trustScore: 92,
     vouchers: [
       {
         friendName: 'Alex Johnson',
@@ -54,6 +71,14 @@ const mockProfiles: Profile[] = [
     interests: ['Music', 'Travel', 'Cooking'],
     mutualFriends: 2,
     location: { latitude: 40.7306, longitude: -73.9352 },
+    bio: 'Chef by day, musician by night. Looking for someone to share adventures and good food with.',
+    socialProof: {
+      endorsements: 15,
+      responseRate: 88,
+      mutualConnections: 12
+    },
+    verificationLevel: 'Silver',
+    trustScore: 89,
     vouchers: [
       {
         friendName: 'Sarah Lee',
@@ -71,6 +96,14 @@ const mockProfiles: Profile[] = [
     interests: ['Art', 'Yoga', 'Coffee'],
     mutualFriends: 4,
     location: { latitude: 40.7580, longitude: -73.9855 },
+    bio: 'Artist and bookworm seeking meaningful connections. Love deep conversations and creative collaborations.',
+    socialProof: {
+      endorsements: 8,
+      responseRate: 91,
+      mutualConnections: 5
+    },
+    verificationLevel: 'Verified',
+    trustScore: 86,
     vouchers: [
       {
         friendName: 'James Williams',
@@ -85,6 +118,7 @@ const mockProfiles: Profile[] = [
 const Discover = () => {
   const [activeTab, setActiveTab] = useState('recommended');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const { toast } = useToast();
   const { coordinates } = useGeolocation();
 
@@ -116,6 +150,11 @@ const Discover = () => {
       description: `You've sent a connection request to ${name}`,
       action: <Handshake className="h-4 w-4" />
     });
+    setSelectedProfile(null);
+  };
+
+  const handleProfileClick = (profile: Profile) => {
+    setSelectedProfile(profile);
   };
 
   return (
@@ -141,16 +180,18 @@ const Discover = () => {
           
           <TabsContent value="recommended" className="space-y-4">
             {profilesWithDistance.map((profile, index) => (
-              <div key={profile.id} className="mb-8" style={{animationDelay: `${index * 150}ms`}}>
-                <ProfileCard 
-                  name={profile.name}
-                  avatar={profile.avatar}
-                  compatibility={profile.compatibility}
-                  interests={profile.interests}
-                  mutualFriends={profile.mutualFriends}
-                  distance={profile.distance}
-                  onConnect={() => handleConnect(profile.name)}
-                />
+              <div key={profile.id} className="mb-8 cursor-pointer" style={{animationDelay: `${index * 150}ms`}}>
+                <div onClick={() => handleProfileClick(profile)}>
+                  <ProfileCard 
+                    name={profile.name}
+                    avatar={profile.avatar}
+                    compatibility={profile.compatibility}
+                    interests={profile.interests}
+                    mutualFriends={profile.mutualFriends}
+                    distance={profile.distance}
+                    onConnect={() => handleConnect(profile.name)}
+                  />
+                </div>
                 
                 {profile.vouchers.map((voucher, idx) => (
                   <div key={idx} className="mt-3 px-2">
@@ -190,6 +231,18 @@ const Discover = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Profile Modal */}
+      {selectedProfile && (
+        <ProfileModal
+          isOpen={true}
+          onClose={() => setSelectedProfile(null)}
+          profile={selectedProfile}
+          onAction={() => handleConnect(selectedProfile.name)}
+          actionLabel="Connect"
+        />
+      )}
+
       <NavigationBar />
     </div>
   );
