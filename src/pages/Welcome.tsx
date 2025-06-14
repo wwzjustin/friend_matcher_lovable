@@ -31,7 +31,7 @@ const Welcome = () => {
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-white">
       <div className="w-full max-w-sm mx-auto">
         {/* Logo and Tagline */}
-        <div className="text-center mb-8 animate-fade-in-up">
+        <div className="text-center mb-12 animate-fade-in-up">
           <div className="mb-6">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
               Friend Link
@@ -40,17 +40,9 @@ const Welcome = () => {
               Harmony
             </h2>
           </div>
-          <p className="text-lg text-gray-700 font-medium mb-4">
+          <p className="text-lg text-gray-700 font-medium">
             Connect through people you trust
           </p>
-          
-          {/* Product Description */}
-          <div className="bg-gray-50 rounded-2xl p-4 mb-6">
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Friend Link Harmony is a social connection app that helps you meet new people through your existing network of friends. 
-              Get personalized recommendations, verified profiles, and friend endorsements to build meaningful relationships with confidence.
-            </p>
-          </div>
         </div>
 
         {/* CTA Button */}
