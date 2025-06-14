@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import NavigationBar from '@/components/NavigationBar';
-import { MessageSquare, Send, Users } from 'lucide-react';
+import { MessageSquare, Send, Users, ArrowRight } from 'lucide-react';
 
 const InviteMessage = () => {
   return (
