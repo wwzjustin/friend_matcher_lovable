@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import NavigationBar from '@/components/NavigationBar';
-import { Heart, X, Users, MapPin } from 'lucide-react';
+import { Heart, X, Users, MapPin, Shield, Star, UserCheck, MessageSquare } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface Match {
@@ -18,6 +18,20 @@ interface Match {
   interests: string[];
   distance: number;
   bio: string;
+  // New social trust features
+  verificationLevel: 'Gold' | 'Silver' | 'Verified' | 'Basic';
+  trustScore: number;
+  friendTestimony: {
+    recommender: string;
+    recommenderAvatar: string;
+    testimony: string;
+    relationship: string;
+  } | null;
+  socialProof: {
+    endorsements: number;
+    responseRate: number;
+    mutualConnections: number;
+  };
 }
 
 const mockMatches: Match[] = [
@@ -30,7 +44,20 @@ const mockMatches: Match[] = [
     compatibilityScore: 87,
     interests: ['Photography', 'Hiking', 'Coffee'],
     distance: 2,
-    bio: 'Love exploring new places and capturing moments. Always up for a good conversation over coffee!'
+    bio: 'Love exploring new places and capturing moments. Always up for a good conversation over coffee!',
+    verificationLevel: 'Gold',
+    trustScore: 94,
+    friendTestimony: {
+      recommender: 'Sarah Johnson',
+      recommenderAvatar: 'https://i.pravatar.cc/150?img=44',
+      testimony: 'Emma is one of the most genuine people I know. She has great energy and you both love photography!',
+      relationship: 'College Friend'
+    },
+    socialProof: {
+      endorsements: 12,
+      responseRate: 92,
+      mutualConnections: 8
+    }
   },
   {
     id: '2',
@@ -41,7 +68,20 @@ const mockMatches: Match[] = [
     compatibilityScore: 92,
     interests: ['Music', 'Cooking', 'Travel'],
     distance: 5,
-    bio: 'Chef by day, musician by night. Looking for someone to share adventures and good food with.'
+    bio: 'Chef by day, musician by night. Looking for someone to share adventures and good food with.',
+    verificationLevel: 'Silver',
+    trustScore: 89,
+    friendTestimony: {
+      recommender: 'Mike Davis',
+      recommenderAvatar: 'https://i.pravatar.cc/150?img=33',
+      testimony: 'Michael is an amazing chef and super thoughtful. You two would get along great!',
+      relationship: 'Work Colleague'
+    },
+    socialProof: {
+      endorsements: 15,
+      responseRate: 88,
+      mutualConnections: 12
+    }
   },
   {
     id: '3',
@@ -52,13 +92,22 @@ const mockMatches: Match[] = [
     compatibilityScore: 78,
     interests: ['Art', 'Yoga', 'Books'],
     distance: 3,
-    bio: 'Artist and bookworm seeking meaningful connections. Love deep conversations and creative collaborations.'
+    bio: 'Artist and bookworm seeking meaningful connections. Love deep conversations and creative collaborations.',
+    verificationLevel: 'Verified',
+    trustScore: 86,
+    friendTestimony: null,
+    socialProof: {
+      endorsements: 8,
+      responseRate: 91,
+      mutualConnections: 5
+    }
   }
 ];
 
 const MatchFeed = () => {
   const [matches, setMatches] = useState(mockMatches);
   const [expandedMatch, setExpandedMatch] = useState<string | null>(null);
+  const [showTestimony, setShowTestimony] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleConnect = (matchId: string, name: string) => {
@@ -77,6 +126,21 @@ const MatchFeed = () => {
     if (score >= 85) return 'text-green-700 bg-green-100';
     if (score >= 70) return 'text-blue-700 bg-blue-100';
     return 'text-purple-700 bg-purple-100';
+  };
+
+  const getVerificationColor = (level: string) => {
+    switch (level) {
+      case 'Gold': return 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-white';
+      case 'Silver': return 'bg-gradient-to-r from-gray-300 to-gray-500 text-white';
+      case 'Verified': return 'bg-gradient-to-r from-blue-400 to-blue-600 text-white';
+      default: return 'bg-gray-200 text-gray-700';
+    }
+  };
+
+  const getTrustScoreColor = (score: number) => {
+    if (score >= 90) return 'text-green-600 bg-green-50';
+    if (score >= 80) return 'text-blue-600 bg-blue-50';
+    return 'text-purple-600 bg-purple-50';
   };
 
   return (
@@ -107,12 +171,24 @@ const MatchFeed = () => {
                 {/* Profile Header */}
                 <div className="p-6 pb-4">
                   <div className="flex items-center space-x-4 mb-4">
-                    <Avatar className="w-16 h-16 border-4 border-white shadow-md">
-                      <AvatarImage src={match.avatar} alt={match.name} />
-                      <AvatarFallback className="text-slate-800 font-semibold">{match.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
+                    <div className="relative">
+                      <Avatar className="w-16 h-16 border-4 border-white shadow-md">
+                        <AvatarImage src={match.avatar} alt={match.name} />
+                        <AvatarFallback className="text-slate-800 font-semibold">{match.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      {/* Verification Badge */}
+                      <Badge className={`absolute -bottom-1 -right-1 text-xs px-1 py-0 ${getVerificationColor(match.verificationLevel)}`}>
+                        <Shield className="w-3 h-3" />
+                      </Badge>
+                    </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-slate-800">{match.name}, {match.age}</h3>
+                      <div className="flex items-center space-x-2 mb-1">
+                        <h3 className="text-xl font-semibold text-slate-800">{match.name}, {match.age}</h3>
+                        <Badge className={`text-xs ${getTrustScoreColor(match.trustScore)}`}>
+                          <Star className="w-3 h-3 mr-1" />
+                          {match.trustScore}%
+                        </Badge>
+                      </div>
                       <div className="flex items-center space-x-4 text-sm text-slate-600">
                         <div className="flex items-center">
                           <Users className="w-4 h-4 mr-1" />
@@ -122,12 +198,69 @@ const MatchFeed = () => {
                           <MapPin className="w-4 h-4 mr-1" />
                           {match.distance}km away
                         </div>
+                        <div className="flex items-center">
+                          <UserCheck className="w-4 h-4 mr-1" />
+                          {match.socialProof.responseRate}% response
+                        </div>
                       </div>
                     </div>
                     <Badge className={`${getCompatibilityColor(match.compatibilityScore)} border-0 font-semibold`}>
                       {match.compatibilityScore}%
                     </Badge>
                   </div>
+
+                  {/* Social Proof */}
+                  <div className="flex items-center justify-between mb-4 p-3 bg-slate-50 rounded-2xl">
+                    <div className="flex items-center space-x-4 text-sm">
+                      <div className="flex items-center text-slate-700">
+                        <Star className="w-4 h-4 mr-1 text-yellow-500" />
+                        {match.socialProof.endorsements} endorsements
+                      </div>
+                      <div className="flex items-center text-slate-700">
+                        <Users className="w-4 h-4 mr-1 text-blue-500" />
+                        {match.socialProof.mutualConnections} connections
+                      </div>
+                    </div>
+                    <Badge variant="secondary" className="text-xs">
+                      {match.verificationLevel}
+                    </Badge>
+                  </div>
+
+                  {/* Friend Testimony */}
+                  {match.friendTestimony && (
+                    <div className="mb-4">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-full justify-start p-3 h-auto bg-blue-50 hover:bg-blue-100 rounded-2xl"
+                        onClick={() => setShowTestimony(showTestimony === match.id ? null : match.id)}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <Avatar className="w-8 h-8">
+                            <AvatarImage src={match.friendTestimony.recommenderAvatar} />
+                            <AvatarFallback className="text-xs">{match.friendTestimony.recommender.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div className="text-left">
+                            <div className="flex items-center space-x-2">
+                              <MessageSquare className="w-4 h-4 text-blue-600" />
+                              <span className="text-sm font-medium text-slate-800">
+                                {match.friendTestimony.recommender} recommends
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-600">{match.friendTestimony.relationship}</p>
+                          </div>
+                        </div>
+                      </Button>
+                      
+                      {showTestimony === match.id && (
+                        <div className="mt-3 p-4 bg-white border-l-4 border-blue-400 rounded-2xl shadow-sm animate-fade-in">
+                          <p className="text-sm italic text-slate-700 leading-relaxed">
+                            "{match.friendTestimony.testimony}"
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Interests */}
                   <div className="flex flex-wrap gap-2 mb-4">
