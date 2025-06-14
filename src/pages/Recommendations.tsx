@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import NavigationBar from '@/components/NavigationBar';
+import ProfileModal from '@/components/ProfileModal';
 import { Heart, X, Users, MapPin, Shield, Star, UserCheck, MessageSquare } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -106,6 +107,7 @@ const Recommendations = () => {
   const [recommendations, setRecommendations] = useState(mockRecommendations);
   const [expandedRecommendation, setExpandedRecommendation] = useState<string | null>(null);
   const [showTestimony, setShowTestimony] = useState<string | null>(null);
+  const [selectedProfile, setSelectedProfile] = useState<Recommendation | null>(null);
   const { toast } = useToast();
 
   const handleConnect = (recommendationId: string, name: string) => {
@@ -114,10 +116,15 @@ const Recommendations = () => {
       title: "Connection sent! 💜",
       description: `Your request was sent to ${name}`,
     });
+    setSelectedProfile(null);
   };
 
   const handleSkip = (recommendationId: string) => {
     setRecommendations(prev => prev.filter(recommendation => recommendation.id !== recommendationId));
+  };
+
+  const handleProfileClick = (recommendation: Recommendation) => {
+    setSelectedProfile(recommendation);
   };
 
   const getCompatibilityColor = (score: number) => {
@@ -169,8 +176,8 @@ const Recommendations = () => {
                 {/* Profile Header */}
                 <div className="p-6 pb-4">
                   <div className="flex items-center space-x-4 mb-4">
-                    <div className="relative">
-                      <Avatar className="w-16 h-16 border-4 border-white shadow-md">
+                    <div className="relative cursor-pointer" onClick={() => handleProfileClick(recommendation)}>
+                      <Avatar className="w-16 h-16 border-4 border-white shadow-md hover:scale-105 transition-transform">
                         <AvatarImage src={recommendation.avatar} alt={recommendation.name} />
                         <AvatarFallback className="text-slate-800 font-semibold">{recommendation.name.charAt(0)}</AvatarFallback>
                       </Avatar>
@@ -314,6 +321,26 @@ const Recommendations = () => {
           ))
         )}
       </div>
+
+      {/* Profile Modal */}
+      {selectedProfile && (
+        <ProfileModal
+          isOpen={true}
+          onClose={() => setSelectedProfile(null)}
+          profile={{
+            ...selectedProfile,
+            compatibility: selectedProfile.compatibilityScore,
+            friendTestimony: selectedProfile.friendTestimony ? {
+              recommender: selectedProfile.friendTestimony.recommender,
+              recommenderAvatar: selectedProfile.friendTestimony.recommenderAvatar,
+              testimony: selectedProfile.friendTestimony.testimony,
+              relationship: selectedProfile.friendTestimony.relationship
+            } : undefined
+          }}
+          onAction={() => handleConnect(selectedProfile.id, selectedProfile.name)}
+          actionLabel="Connect"
+        />
+      )}
       
       <NavigationBar />
     </div>
