@@ -28,19 +28,19 @@ const Welcome = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-white">
       <div className="w-full max-w-sm mx-auto">
         {/* Logo and Tagline */}
         <div className="text-center mb-12 animate-fade-in-up">
           <div className="mb-6">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
               Friend Link
             </h1>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold text-gray-900">
               Harmony
             </h2>
           </div>
-          <p className="text-lg text-slate-700 font-medium">
+          <p className="text-lg text-gray-700 font-medium">
             Connect through people you trust
           </p>
         </div>
@@ -50,7 +50,7 @@ const Welcome = () => {
           <Link to="/matches">
             <Button 
               size="lg" 
-              className="w-full h-14 text-lg font-semibold rounded-full gradient-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="w-full h-14 text-lg font-semibold rounded-full gradient-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-white"
             >
               Start Connecting 💫
             </Button>
@@ -62,21 +62,21 @@ const Welcome = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="gradient-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in-up rounded-2xl"
+              className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in-up rounded-2xl"
               style={{animationDelay: `${300 + index * 150}ms`}}
             >
               <CardContent className="p-5">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 flex items-center justify-center text-2xl">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-100 to-blue-100 flex items-center justify-center text-2xl">
                       {feature.emoji}
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-slate-800 mb-1 text-lg">
+                    <h3 className="font-semibold text-gray-900 mb-1 text-lg">
                       {feature.title}
                     </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm text-gray-700 leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -88,7 +88,7 @@ const Welcome = () => {
 
         {/* Footer */}
         <div className="text-center mt-8 animate-fade-in-up" style={{animationDelay: '800ms'}}>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-gray-600">
             Join thousands creating meaningful connections
           </p>
         </div>
