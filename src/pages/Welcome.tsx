@@ -40,7 +40,7 @@ const Welcome = () => {
               Harmony
             </h2>
           </div>
-          <p className="text-lg text-muted-foreground font-medium">
+          <p className="text-lg text-slate-700 font-medium">
             Connect through people you trust
           </p>
         </div>
@@ -73,10 +73,10 @@ const Welcome = () => {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-1 text-lg">
+                    <h3 className="font-semibold text-slate-800 mb-1 text-lg">
                       {feature.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-slate-600 leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -88,7 +88,7 @@ const Welcome = () => {
 
         {/* Footer */}
         <div className="text-center mt-8 animate-fade-in-up" style={{animationDelay: '800ms'}}>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-slate-500">
             Join thousands creating meaningful connections
           </p>
         </div>

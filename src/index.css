@@ -8,13 +8,13 @@
 @layer base {
   :root {
     --background: 255 251 254;
-    --foreground: 51 65 85;
+    --foreground: 30 41 59;
 
     --card: 255 255 255;
-    --card-foreground: 51 65 85;
+    --card-foreground: 30 41 59;
 
     --popover: 255 255 255;
-    --popover-foreground: 51 65 85;
+    --popover-foreground: 30 41 59;
 
     --primary: 147 51 234;
     --primary-foreground: 255 255 255;
@@ -23,10 +23,10 @@
     --secondary-foreground: 255 255 255;
 
     --muted: 248 250 252;
-    --muted-foreground: 100 116 139;
+    --muted-foreground: 71 85 105;
 
     --accent: 243 232 255;
-    --accent-foreground: 107 33 168;
+    --accent-foreground: 88 28 135;
 
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
@@ -91,7 +91,7 @@
   }
   
   .gradient-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
     backdrop-filter: blur(10px);
   }
   

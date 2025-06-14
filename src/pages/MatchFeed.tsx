@@ -74,9 +74,9 @@ const MatchFeed = () => {
   };
 
   const getCompatibilityColor = (score: number) => {
-    if (score >= 85) return 'text-green-600 bg-green-100';
-    if (score >= 70) return 'text-blue-600 bg-blue-100';
-    return 'text-purple-600 bg-purple-100';
+    if (score >= 85) return 'text-green-700 bg-green-100';
+    if (score >= 70) return 'text-blue-700 bg-blue-100';
+    return 'text-purple-700 bg-purple-100';
   };
 
   return (
@@ -93,8 +93,8 @@ const MatchFeed = () => {
         {matches.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-6xl mb-4">🎉</div>
-            <h3 className="text-xl font-semibold mb-2">All caught up!</h3>
-            <p className="text-muted-foreground">Check back later for new connections</p>
+            <h3 className="text-xl font-semibold mb-2 text-slate-800">All caught up!</h3>
+            <p className="text-slate-600">Check back later for new connections</p>
           </div>
         ) : (
           matches.map((match, index) => (
@@ -109,11 +109,11 @@ const MatchFeed = () => {
                   <div className="flex items-center space-x-4 mb-4">
                     <Avatar className="w-16 h-16 border-4 border-white shadow-md">
                       <AvatarImage src={match.avatar} alt={match.name} />
-                      <AvatarFallback>{match.name.charAt(0)}</AvatarFallback>
+                      <AvatarFallback className="text-slate-800 font-semibold">{match.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold">{match.name}, {match.age}</h3>
-                      <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                      <h3 className="text-xl font-semibold text-slate-800">{match.name}, {match.age}</h3>
+                      <div className="flex items-center space-x-4 text-sm text-slate-600">
                         <div className="flex items-center">
                           <Users className="w-4 h-4 mr-1" />
                           {match.mutualFriends} mutual
@@ -132,7 +132,7 @@ const MatchFeed = () => {
                   {/* Interests */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {match.interests.map((interest, idx) => (
-                      <Badge key={idx} variant="secondary" className="rounded-full">
+                      <Badge key={idx} variant="secondary" className="rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200">
                         {interest}
                       </Badge>
                     ))}
@@ -145,7 +145,7 @@ const MatchFeed = () => {
                       expandedMatch === match.id ? null : match.id
                     )}
                   >
-                    <p className={`text-muted-foreground ${
+                    <p className={`text-slate-600 ${
                       expandedMatch === match.id ? '' : 'line-clamp-2'
                     }`}>
                       {match.bio}
@@ -163,7 +163,7 @@ const MatchFeed = () => {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="flex-1 rounded-full border-2 hover:bg-gray-50"
+                    className="flex-1 rounded-full border-2 hover:bg-gray-50 text-slate-700 border-slate-300"
                     onClick={() => handleSkip(match.id)}
                   >
                     <X className="w-5 h-5 mr-2" />
