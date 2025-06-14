@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,83 +7,65 @@
 
 @layer base {
   :root {
-    --background: 260 33% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 255 251 254;
+    --foreground: 51 65 85;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 255 255 255;
+    --card-foreground: 51 65 85;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 255 255 255;
+    --popover-foreground: 51 65 85;
 
-    --primary: 263 68% 74%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 147 51 234;
+    --primary-foreground: 255 255 255;
 
-    --secondary: 199 89% 48%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 59 130 246;
+    --secondary-foreground: 255 255 255;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 248 250 252;
+    --muted-foreground: 100 116 139;
 
-    --accent: 263 68% 94%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 243 232 255;
+    --accent-foreground: 107 33 168;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 263 68% 74%;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 147 51 234;
 
     --radius: 1rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --background: 15 23 42;
+    --foreground: 241 245 249;
 
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
+    --card: 30 41 59;
+    --card-foreground: 241 245 249;
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
+    --popover: 30 41 59;
+    --popover-foreground: 241 245 249;
 
-    --primary: 263 68% 74%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 147 51 234;
+    --primary-foreground: 255 255 255;
 
-    --secondary: 199 89% 48%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 59 130 246;
+    --secondary-foreground: 255 255 255;
 
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted: 51 65 85;
+    --muted-foreground: 148 163 184;
 
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 88 28 135;
+    --accent-foreground: 241 245 249;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
 
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-    --ring: 263 68% 74%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 51 65 85;
+    --input: 51 65 85;
+    --ring: 147 51 234;
   }
 }
 
@@ -93,25 +75,38 @@
   }
   
   html {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   body {
     @apply bg-background text-foreground;
+    background: linear-gradient(135deg, rgb(255 251 254) 0%, rgb(243 232 255) 50%, rgb(219 234 254) 100%);
+    min-height: 100vh;
   }
 }
 
 @layer utilities {
-  .pulse-subtle {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .gradient-primary {
+    background: linear-gradient(135deg, rgb(147 51 234) 0%, rgb(59 130 246) 100%);
   }
-
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
+  
+  .gradient-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+    backdrop-filter: blur(10px);
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
     }
-    50% {
-      opacity: 0.8;
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
