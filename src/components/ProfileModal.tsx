@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -49,7 +48,12 @@ interface ProfileModalProps {
       recommendation: string;
       relationshipToTarget: string;
     }[];
-    location?: any;
+    location?: {
+      latitude?: number;
+      longitude?: number;
+      city?: string;
+      country?: string;
+    };
   };
   onAction?: () => void;
   actionLabel?: string;
